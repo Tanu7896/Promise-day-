@@ -1,22 +1,19 @@
 const pages = document.querySelectorAll('.page');
 const music = document.getElementById('bgMusic');
-const musicBtn = document.getElementById('musicBtn');
+const intro = document.getElementById('intro');
+const transition = document.getElementById('transition');
 
-function goTo(id) {
-  pages.forEach(page => page.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+/* Start experience */
+function startExperience() {
+  intro.style.display = "none";
+  music.play();
 }
 
-/* Music */
-musicBtn.onclick = () => {
-  if (music.paused) {
-    music.play();
-    musicBtn.innerText = "⏸ Music";
-  } else {
-    music.pause();
-    musicBtn.innerText = "▶ Music";
-  }
-};
+/* Navigation */
+function goTo(id) {
+  pages.forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
 
 /* Typing promises */
 const promises = [
@@ -40,27 +37,26 @@ typePromise();
 /* Unlock */
 function unlock() {
   const pass = document.getElementById("password").value.toLowerCase();
-  if (pass === "deepika") {
-    goTo("letter");
-  } else {
-    document.getElementById("error").innerText = "Wrong name 💔";
-  }
+  if (pass === "deepika") goTo("letter");
+  else document.getElementById("error").innerText = "Wrong name 💔";
 }
 
-/* Forever Loop */
-function loopForever() {
-  const msg = document.getElementById("loopMessage");
-
-  msg.innerText =
-    "Oh...? Back to home page again..... Maybe it symbolises how we always come back to each other 😁";
-
-  msg.style.opacity = 1;
-
+/* Forever loop */
+function startLoop() {
+  transition.style.display = "flex";
   setTimeout(() => {
-    msg.style.opacity = 0;
-  }, 3500);
-
-  setTimeout(() => {
+    transition.style.display = "none";
     goTo("home");
   }, 5000);
 }
+
+/* Floating hearts */
+const hearts = document.querySelector('.hearts');
+setInterval(() => {
+  const heart = document.createElement('span');
+  heart.innerText = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = 6 + Math.random() * 4 + "s";
+  hearts.appendChild(heart);
+  setTimeout(() => heart.remove(), 10000);
+}, 700);
