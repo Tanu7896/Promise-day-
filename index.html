@@ -12,13 +12,29 @@
 </head>
 <body>
 
-<!-- Loop transition (only for final → home) -->
+<!-- 💕 Heart Rain -->
+<div class="hearts"></div>
+
+<!-- 🎵 INTRO (SEPARATE, SAFE) -->
+<div id="intro">
+  <div class="intro-heart">💖</div>
+  <h2>For a better experience</h2>
+  <p>Tap below & wear earphones 🎧</p>
+  <button onclick="startExperience()">Enter 💙</button>
+</div>
+
+<!-- 🔁 Loop Transition -->
 <div id="loopTransition">
   <p>
     Oh...? Back to home page again.....<br>
     Maybe it symbolises how we always come back to each other 😁
   </p>
 </div>
+
+<!-- 🎵 Music -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
 <!-- HOME -->
 <section class="page active" id="home">
@@ -30,7 +46,6 @@
   <button onclick="goTo('why')">Read My Promises</button>
 </section>
 
-<!-- WHY -->
 <section class="page" id="why">
   <h2 class="glow">Why I Promise You, Deepika</h2>
   <p class="soft-glow">
@@ -41,14 +56,12 @@
   <button onclick="goTo('promises')">My Promises</button>
 </section>
 
-<!-- PROMISES -->
 <section class="page" id="promises">
   <h2 class="glow">My Promises To You 💍</h2>
   <div id="typing" class="soft-glow"></div>
   <button onclick="goTo('lock')">One Last Promise</button>
 </section>
 
-<!-- LOCK -->
 <section class="page" id="lock">
   <h2 class="glow">Special Lock 🔐</h2>
   <p class="soft-glow">Enter the name of the person who owns my heart</p>
@@ -57,7 +70,6 @@
   <p id="error" class="soft-glow"></p>
 </section>
 
-<!-- LETTER -->
 <section class="page" id="letter">
   <h2 class="glow">A Letter For You ✍️</h2>
   <p class="handwritten">
@@ -71,13 +83,11 @@
   <button onclick="goTo('surprise')">One Last Thing 🎁</button>
 </section>
 
-<!-- SURPRISE -->
 <section class="page" id="surprise">
   <h2 class="glow">Will you always be my promise?</h2>
   <button onclick="goTo('final')">💙</button>
 </section>
 
-<!-- FINAL -->
 <section class="page" id="final">
   <h2 class="glow">♾️</h2>
   <p class="soft-glow">My promises will always find you.</p>
