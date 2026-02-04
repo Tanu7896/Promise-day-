@@ -1,0 +1,65 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: linear-gradient(120deg, #cfd9ff, #fbc2eb);
+  height: 100vh;
+  overflow: hidden;
+  text-align: center;
+  color: #333;
+}
+
+.page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 40px 20px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: opacity 0.8s ease;
+}
+
+.page.active {
+  display: flex;
+}
+
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 20px;
+}
+
+p {
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  background: #ff6fae;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+input {
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#musicBtn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 100;
+}
