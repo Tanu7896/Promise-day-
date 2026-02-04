@@ -1,25 +1,30 @@
 const pages = document.querySelectorAll('.page');
 const loopTransition = document.getElementById('loopTransition');
 
-/* Page navigation with smooth transition */
+/* Smooth page change */
 function goTo(id) {
   const current = document.querySelector('.page.active');
   const next = document.getElementById(id);
 
-  if (current === next) return;
+  if (!next || current === next) return;
 
+  // fade out current
   current.classList.remove('active');
 
+  // wait for fade-out, then fade in next
   setTimeout(() => {
     next.classList.add('active');
-  }, 200);
+  }, 300);
 }
 
 /* Lock */
 function unlock() {
   const pass = document.getElementById("password").value.toLowerCase();
-  if (pass === "deepika") goTo("letter");
-  else document.getElementById("error").innerText = "Wrong name 💔";
+  if (pass === "deepika") {
+    goTo("letter");
+  } else {
+    document.getElementById("error").innerText = "Wrong name 💔";
+  }
 }
 
 /* Typing promises */
@@ -39,23 +44,20 @@ function typePromise() {
 }
 typePromise();
 
-/* Forever loop */
+/* Final → Home loop with clean transition */
 function startLoop() {
   loopTransition.style.display = "flex";
+  loopTransition.style.opacity = "1";
+  loopTransition.style.pointerEvents = "auto";
 
   setTimeout(() => {
-    loopTransition.style.display = "none";
-    goTo("home");
-  }, 4000);
-}
+    loopTransition.style.opacity = "0";
+    loopTransition.style.pointerEvents = "none";
 
-/* Floating hearts */
-const hearts = document.querySelector('.hearts');
-setInterval(() => {
-  const heart = document.createElement('span');
-  heart.innerText = "💖";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = 6 + Math.random() * 4 + "s";
-  hearts.appendChild(heart);
-  setTimeout(() => heart.remove(), 10000);
-}, 800);
+    setTimeout(() => {
+      loopTransition.style.display = "none";
+      goTo("home");
+    }, 600);
+
+  }, 3500);
+}
