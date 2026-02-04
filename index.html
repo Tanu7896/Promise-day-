@@ -5,11 +5,42 @@
   <title>Promise Day 💙</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Playfair+Display:wght@600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Nunito:wght@300;400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- Floating hearts background -->
+<div class="hearts"></div>
+
+<!-- 🎵 INTRO / MUSIC PAGE -->
+<div id="intro">
+  <div class="intro-heart">💖</div>
+
+  <h2 class="glow">For the best experience</h2>
+  <p class="soft-glow">
+    Wear your earphones 🎧<br>
+    and tap below
+  </p>
+
+  <div class="music-waves">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <button onclick="startExperience()">Play Music & Enter 💙</button>
+</div>
+
+<!-- 🔁 TRANSITION OVERLAY -->
+<div id="transition">
+  <p>
+    Oh...? Back to home page again.....<br>
+    Maybe it symbolises how we always come back to each other 😁
+  </p>
+</div>
+
+<!-- 🎵 Music -->
 <audio id="bgMusic" loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
@@ -26,7 +57,6 @@
   <button onclick="goTo('why')">Read My Promises</button>
 </section>
 
-<!-- WHY -->
 <section class="page" id="why">
   <h2 class="glow">Why I Promise You, Deepika</h2>
   <p class="soft-glow">
@@ -37,14 +67,12 @@
   <button onclick="goTo('promises')">My Promises</button>
 </section>
 
-<!-- PROMISES -->
 <section class="page" id="promises">
   <h2 class="glow">My Promises To You 💍</h2>
   <div id="typing" class="soft-glow"></div>
   <button onclick="goTo('lock')">One Last Promise</button>
 </section>
 
-<!-- LOCK -->
 <section class="page" id="lock">
   <h2 class="glow">Special Lock 🔐</h2>
   <p class="soft-glow">Enter the name of the person who owns my heart</p>
@@ -53,7 +81,6 @@
   <p id="error" class="soft-glow"></p>
 </section>
 
-<!-- LETTER -->
 <section class="page" id="letter">
   <h2 class="glow">A Letter For You ✍️</h2>
   <p class="handwritten">
@@ -71,14 +98,12 @@
   <button onclick="goTo('surprise')">One Last Thing 🎁</button>
 </section>
 
-<!-- SURPRISE -->
 <section class="page" id="surprise">
   <h2 class="glow big-glow">Will you always be my promise?</h2>
   <p class="soft-glow">This question has only one answer…</p>
   <button onclick="goTo('final')">💙</button>
 </section>
 
-<!-- FINAL -->
 <section class="page" id="final">
   <h2 class="glow">♾️</h2>
   <p class="soft-glow">
@@ -86,9 +111,7 @@
     my promises will always find you.
   </p>
   <span class="soft-glow">— Yours, always</span>
-
-  <button onclick="loopForever()">Forever ♾️</button>
-  <p id="loopMessage" class="soft-glow loop-text"></p>
+  <button onclick="startLoop()">Forever ♾️</button>
 </section>
 
 <script src="script.js"></script>
