@@ -2,15 +2,15 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
 }
 
 body {
-  background: linear-gradient(120deg, #cfd9ff, #fbc2eb);
   height: 100vh;
-  overflow: hidden;
+  background: linear-gradient(120deg, #cfd9ff, #fbc2eb);
+  font-family: 'Poppins', sans-serif;
   text-align: center;
-  color: #333;
+  overflow: hidden;
+  color: #fff;
 }
 
 .page {
@@ -22,7 +22,6 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  transition: opacity 0.8s ease;
 }
 
 .page.active {
@@ -35,12 +34,12 @@ h1, h2 {
 }
 
 p {
-  margin-bottom: 25px;
   line-height: 1.6;
+  margin-bottom: 25px;
 }
 
 button {
-  padding: 12px 25px;
+  padding: 12px 28px;
   border: none;
   border-radius: 25px;
   background: #ff6fae;
@@ -53,8 +52,8 @@ input {
   padding: 10px;
   border-radius: 20px;
   border: none;
-  margin-bottom: 10px;
   text-align: center;
+  margin-bottom: 10px;
 }
 
 #musicBtn {
@@ -62,4 +61,55 @@ input {
   top: 15px;
   right: 15px;
   z-index: 100;
+}
+
+/* Glow Text */
+.glow {
+  text-shadow:
+    0 0 6px #ffb6d5,
+    0 0 12px #ff8fc4,
+    0 0 24px #ff6fae,
+    0 0 40px #ff6fae;
+  animation: glowPulse 2.5s ease-in-out infinite alternate;
+}
+
+.big-glow {
+  font-size: 26px;
+}
+
+@keyframes glowPulse {
+  from {
+    text-shadow:
+      0 0 6px #ffb6d5,
+      0 0 12px #ff8fc4,
+      0 0 24px #ff6fae;
+  }
+  to {
+    text-shadow:
+      0 0 12px #ffd1e8,
+      0 0 24px #ff8fc4,
+      0 0 48px #ff6fae,
+      0 0 64px #ff6fae;
+  }
+}
+
+.soft-glow {
+  text-shadow: 0 0 6px rgba(255, 111, 174, 0.7);
+}
+
+/* Handwritten Letter */
+.handwritten {
+  font-family: 'Dancing Script', cursive;
+  font-size: 22px;
+  line-height: 1.8;
+  max-width: 600px;
+  text-shadow: 0 0 8px rgba(255,255,255,0.4);
+}
+
+/* Loop message */
+.loop-text {
+  margin-top: 20px;
+  font-size: 15px;
+  opacity: 0;
+  transition: opacity 1s ease;
 }
