@@ -1,35 +1,29 @@
 const pages = document.querySelectorAll('.page');
-const music = document.getElementById('bgMusic');
-const intro = document.getElementById('intro');
-const transition = document.getElementById('transition');
+const loopTransition = document.getElementById('loopTransition');
 
+/* Page navigation with smooth transition */
 function goTo(id) {
-  pages.forEach(p => p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  const current = document.querySelector('.page.active');
+  const next = document.getElementById(id);
+
+  if (current === next) return;
+
+  current.classList.remove('active');
+
+  setTimeout(() => {
+    next.classList.add('active');
+  }, 200);
 }
 
-function startExperience() {
-  intro.style.display = "none";
-  music.play();
-  goTo("home");
-}
-
+/* Lock */
 function unlock() {
   const pass = document.getElementById("password").value.toLowerCase();
   if (pass === "deepika") goTo("letter");
   else document.getElementById("error").innerText = "Wrong name 💔";
 }
 
-function startLoop() {
-  transition.style.display = "flex";
-  setTimeout(() => {
-    transition.style.display = "none";
-    goTo("home");
-  }, 4500);
-}
-
 /* Typing promises */
-const text = [
+const promises = [
   "I promise to respect you.",
   "I promise to choose you.",
   "I promise to stay."
@@ -37,10 +31,31 @@ const text = [
 
 let i = 0;
 function typePromise() {
-  if (i < text.length) {
-    document.getElementById("typing").innerHTML += text[i] + "<br>";
+  if (i < promises.length) {
+    document.getElementById("typing").innerHTML += promises[i] + "<br>";
     i++;
     setTimeout(typePromise, 1200);
   }
 }
 typePromise();
+
+/* Forever loop */
+function startLoop() {
+  loopTransition.style.display = "flex";
+
+  setTimeout(() => {
+    loopTransition.style.display = "none";
+    goTo("home");
+  }, 4000);
+}
+
+/* Floating hearts */
+const hearts = document.querySelector('.hearts');
+setInterval(() => {
+  const heart = document.createElement('span');
+  heart.innerText = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = 6 + Math.random() * 4 + "s";
+  hearts.appendChild(heart);
+  setTimeout(() => heart.remove(), 10000);
+}, 800);
