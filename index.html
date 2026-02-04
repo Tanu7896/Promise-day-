@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Promise Day 💙</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicBtn">▶ Music</button>
+
+<div class="heart-container"></div>
+
+<section class="page active" id="home">
+  <h1>A Promise From My Heart</h1>
+  <p>Some people give flowers,<br>I give you promises.</p>
+  <button onclick="goTo('why')">Read My Promises</button>
+</section>
+
+<section class="page" id="why">
+  <h2>Why I Promise You, Deepika</h2>
+  <p>
+    Because loving you feels safe.<br>
+    Because distance couldn’t break us.<br>
+    Because I don’t want temporary love.
+  </p>
+  <button onclick="goTo('promises')">My Promises</button>
+</section>
+
+<section class="page" id="promises">
+  <h2>My Promises To You 💍</h2>
+  <div id="typing"></div>
+  <button onclick="goTo('lock')">One Last Promise</button>
+</section>
+
+<section class="page" id="lock">
+  <h2>Special Lock 🔐</h2>
+  <p>Enter the name of the person who owns my heart</p>
+  <input type="password" id="password" placeholder="Name">
+  <button onclick="unlock()">Unlock</button>
+  <p id="error"></p>
+</section>
+
+<section class="page" id="forever">
+  <h2>Forever ♾️</h2>
+  <p>
+    Deepika,<br>
+    This is not a promise for one day,<br>
+    it’s a promise for a lifetime.
+  </p>
+  <button onclick="goTo('final')">Final Message</button>
+</section>
+
+<section class="page" id="final">
+  <h2>💙</h2>
+  <p>
+    No matter where life takes us,<br>
+    my promises will always find you.
+  </p>
+  <span>— Yours, always</span>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
