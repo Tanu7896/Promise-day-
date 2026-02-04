@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Promise Day ❤️</title>
+  <title>Promise Day 💙</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Fonts -->
@@ -12,27 +12,18 @@
 </head>
 <body>
 
-<!-- Floating hearts background -->
+<!-- Floating hearts -->
 <div class="hearts"></div>
 
-<!-- 🎵 INTRO / MUSIC PAGE -->
+<!-- INTRO (separate, not a page) -->
 <div id="intro">
   <div class="intro-heart">💖</div>
-
-  <h2 class="glow">For the best experience</h2>
-  <p class="soft-glow">
-    Wear your earphones 🎧<br>
-    and tap below
-  </p>
-
-  <div class="music-waves">
-    <span></span><span></span><span></span><span></span><span></span>
-  </div>
-
-  <button onclick="startExperience()">Play Music & Enter 💙</button>
+  <h2>For better experience</h2>
+  <p>Tap to play music 🎧</p>
+  <button onclick="startExperience()">Enter 💙</button>
 </div>
 
-<!-- 🔁 TRANSITION OVERLAY -->
+<!-- TRANSITION OVERLAY -->
 <div id="transition">
   <p>
     Oh...? Back to home page again.....<br>
@@ -40,20 +31,15 @@
   </p>
 </div>
 
-<!-- 🎵 Music -->
+<!-- Music -->
 <audio id="bgMusic" loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<button id="musicBtn">▶ Music</button>
-
 <!-- HOME -->
 <section class="page active" id="home">
   <h1 class="glow">A Promise From My Heart</h1>
-  <p class="soft-glow">
-    Some people give flowers,<br>
-    I give you promises.
-  </p>
+  <p class="soft-glow">Some people give flowers,<br>I give you promises.</p>
   <button onclick="goTo('why')">Read My Promises</button>
 </section>
 
@@ -76,9 +62,9 @@
 <section class="page" id="lock">
   <h2 class="glow">Special Lock 🔐</h2>
   <p class="soft-glow">Enter the name of the person who owns my heart</p>
-  <input type="password" id="password" placeholder="Name">
+  <input id="password" placeholder="Name">
   <button onclick="unlock()">Unlock</button>
-  <p id="error" class="soft-glow"></p>
+  <p id="error"></p>
 </section>
 
 <section class="page" id="letter">
@@ -87,30 +73,21 @@
     Dear Deepika,<br><br>
     I don’t promise perfection,<br>
     but I promise effort.<br><br>
-    I promise to stay when things get hard,<br>
-    to listen when words feel heavy,<br>
-    and to choose you every single day.<br><br>
     No matter the distance,<br>
-    no matter the time,<br>
-    my heart finds its way back to you.<br><br>
+    my heart always comes back to you.<br><br>
     Always yours 🤍
   </p>
   <button onclick="goTo('surprise')">One Last Thing 🎁</button>
 </section>
 
 <section class="page" id="surprise">
-  <h2 class="glow big-glow">Will you always be my promise?</h2>
-  <p class="soft-glow">This question has only one answer…</p>
+  <h2 class="glow">Will you always be my promise?</h2>
   <button onclick="goTo('final')">💙</button>
 </section>
 
 <section class="page" id="final">
   <h2 class="glow">♾️</h2>
-  <p class="soft-glow">
-    No matter where life takes us,<br>
-    my promises will always find you.
-  </p>
-  <span class="soft-glow">— Yours, always</span>
+  <p class="soft-glow">My promises will always find you.</p>
   <button onclick="startLoop()">Forever ♾️</button>
 </section>
 
