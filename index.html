@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <title>Promise Day 💙</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Playfair+Display:wght@600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,6 +16,7 @@
 
 <button id="musicBtn">▶ Music</button>
 
+<!-- HOME -->
 <section class="page active" id="home">
   <h1 class="glow">A Promise From My Heart</h1>
   <p class="soft-glow">
@@ -24,6 +26,7 @@
   <button onclick="goTo('why')">Read My Promises</button>
 </section>
 
+<!-- WHY -->
 <section class="page" id="why">
   <h2 class="glow">Why I Promise You, Deepika</h2>
   <p class="soft-glow">
@@ -34,12 +37,14 @@
   <button onclick="goTo('promises')">My Promises</button>
 </section>
 
+<!-- PROMISES -->
 <section class="page" id="promises">
   <h2 class="glow">My Promises To You 💍</h2>
   <div id="typing" class="soft-glow"></div>
   <button onclick="goTo('lock')">One Last Promise</button>
 </section>
 
+<!-- LOCK -->
 <section class="page" id="lock">
   <h2 class="glow">Special Lock 🔐</h2>
   <p class="soft-glow">Enter the name of the person who owns my heart</p>
@@ -48,23 +53,42 @@
   <p id="error" class="soft-glow"></p>
 </section>
 
-<section class="page" id="forever">
-  <h2 class="glow">Forever ♾️</h2>
-  <p class="soft-glow">
-    Deepika,<br>
-    This is not a promise for one day,<br>
-    it’s a promise for a lifetime.
+<!-- LETTER -->
+<section class="page" id="letter">
+  <h2 class="glow">A Letter For You ✍️</h2>
+  <p class="handwritten">
+    Dear Deepika,<br><br>
+    I don’t promise perfection,<br>
+    but I promise effort.<br><br>
+    I promise to stay when things get hard,<br>
+    to listen when words feel heavy,<br>
+    and to choose you every single day.<br><br>
+    No matter the distance,<br>
+    no matter the time,<br>
+    my heart finds its way back to you.<br><br>
+    Always yours 🤍
   </p>
-  <button onclick="goTo('final')">Final Message</button>
+  <button onclick="goTo('surprise')">One Last Thing 🎁</button>
 </section>
 
+<!-- SURPRISE -->
+<section class="page" id="surprise">
+  <h2 class="glow big-glow">Will you always be my promise?</h2>
+  <p class="soft-glow">This question has only one answer…</p>
+  <button onclick="goTo('final')">💙</button>
+</section>
+
+<!-- FINAL -->
 <section class="page" id="final">
-  <h2 class="glow">💙</h2>
+  <h2 class="glow">♾️</h2>
   <p class="soft-glow">
     No matter where life takes us,<br>
     my promises will always find you.
   </p>
   <span class="soft-glow">— Yours, always</span>
+
+  <button onclick="loopForever()">Forever ♾️</button>
+  <p id="loopMessage" class="soft-glow loop-text"></p>
 </section>
 
 <script src="script.js"></script>
