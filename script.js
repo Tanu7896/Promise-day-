@@ -1,48 +1,31 @@
-const pages = document.querySelectorAll('.page');
-const intro = document.getElementById('intro');
+const screens = document.querySelectorAll('.screen');
 const music = document.getElementById('bgMusic');
 
-/* Start music */
-function startExperience() {
-  intro.style.display = "none";
-  music.play().catch(() => {});
-}
-
-/* Navigation */
-function goTo(id) {
-  pages.forEach(p => p.classList.remove('active'));
+function showScreen(id) {
+  screens.forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
-/* Maze */
+/* Intro */
+function startExperience() {
+  document.getElementById('intro').classList.remove('active');
+  showScreen('home');
+  music.play().catch(() => {});
+}
+
+/* Maze logic */
 const player = document.getElementById("player");
 const goal = document.getElementById("goal");
-const walls = document.querySelectorAll(".wall");
 const maze = document.getElementById("mazeContainer");
+const walls = document.querySelectorAll(".wall");
 const knob = document.getElementById("joystickKnob");
 const base = document.getElementById("joystickBase");
 const msg = document.getElementById("mazeMsg");
 
-let dragging = false;
 let px = 10, py = 10;
-const speed = 1.6;
+let dragging = false;
 
-/* Trail */
-function createTrail(x, y) {
-  const t = document.createElement("div");
-  t.className = "trail";
-  t.style.left = x + 9 + "px";
-  t.style.top = y + 9 + "px";
-  maze.appendChild(t);
-  setTimeout(() => t.remove(), 800);
-}
-
-/* Joystick */
-knob.addEventListener("pointerdown", e => {
-  dragging = true;
-  e.preventDefault();
-});
-
+knob.addEventListener("pointerdown", () => dragging = true);
 document.addEventListener("pointerup", () => {
   dragging = false;
   knob.style.transform = "translate(0,0)";
@@ -52,8 +35,8 @@ document.addEventListener("pointermove", e => {
   if (!dragging) return;
 
   const rect = base.getBoundingClientRect();
-  const dx = e.clientX - (rect.left + rect.width / 2);
-  const dy = e.clientY - (rect.top + rect.height / 2);
+  const dx = e.clientX - (rect.left + 60);
+  const dy = e.clientY - (rect.top + 60);
 
   const dist = Math.min(30, Math.hypot(dx, dy));
   const angle = Math.atan2(dy, dx);
@@ -61,73 +44,43 @@ document.addEventListener("pointermove", e => {
   const mx = Math.cos(angle) * dist;
   const my = Math.sin(angle) * dist;
 
-  knob.style.transform = `translate(${mx}px, ${my}px)`;
-  tryMove(mx * speed * 0.06, my * speed * 0.06);
+  knob.style.transform = `translate(${mx}px,${my}px)`;
+  tryMove(mx * 0.06, my * 0.06);
 });
 
-/* Collision-safe movement */
 function tryMove(dx, dy) {
-  let newX = px + dx;
-  let newY = py + dy;
+  let nx = px + dx;
+  let ny = py + dy;
 
-  newX = Math.max(0, Math.min(250, newX));
-  newY = Math.max(0, Math.min(250, newY));
+  nx = Math.max(0, Math.min(230, nx));
+  ny = Math.max(0, Math.min(230, ny));
 
-  const testRect = {
-    left: newX,
-    top: newY,
-    right: newX + 30,
-    bottom: newY + 30
-  };
+  const test = { left:nx, top:ny, right:nx+24, bottom:ny+24 };
 
   for (let wall of walls) {
-    const w = wall.getBoundingClientRect();
+    const r = wall.getBoundingClientRect();
     const m = maze.getBoundingClientRect();
 
-    const wallRect = {
-      left: w.left - m.left,
-      top: w.top - m.top,
-      right: w.right - m.left,
-      bottom: w.bottom - m.top
+    const w = {
+      left: r.left - m.left,
+      top: r.top - m.top,
+      right: r.right - m.left,
+      bottom: r.bottom - m.top
     };
 
-    const near =
-      Math.abs((testRect.left + 15) - (wallRect.left + wallRect.right) / 2) +
-      Math.abs((testRect.top + 15) - (wallRect.top + wallRect.bottom) / 2);
-
-    wall.classList.toggle("near", near < 90);
-
     if (
-      testRect.right > wallRect.left &&
-      testRect.left < wallRect.right &&
-      testRect.bottom > wallRect.top &&
-      testRect.top < wallRect.bottom
-    ) {
-      return; // ❌ BLOCK movement only
-    }
+      test.right > w.left &&
+      test.left < w.right &&
+      test.bottom > w.top &&
+      test.top < w.bottom
+    ) return;
   }
 
-  px = newX;
-  py = newY;
+  px = nx; py = ny;
   player.style.left = px + "px";
   player.style.top = py + "px";
-  createTrail(px, py);
 
-  const g = goal.getBoundingClientRect();
-  const m = maze.getBoundingClientRect();
-  const goalRect = {
-    left: g.left - m.left,
-    top: g.top - m.top,
-    right: g.right - m.left,
-    bottom: g.bottom - m.top
-  };
-
-  if (
-    testRect.right > goalRect.left &&
-    testRect.left < goalRect.right &&
-    testRect.bottom > goalRect.top &&
-    testRect.top < goalRect.bottom
-  ) {
-    msg.innerText = "You found your way to my heart 💖";
+  if (py > 230) {
+    msg.innerText = "You found the way out 💖";
   }
 }
