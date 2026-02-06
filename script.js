@@ -1,12 +1,20 @@
 const pages = document.querySelectorAll('.page');
+const intro = document.getElementById('intro');
+const music = document.getElementById('bgMusic');
 
-/* Simple navigation */
+/* Start music */
+function startExperience() {
+  intro.style.display = "none";
+  music.play().catch(() => {});
+}
+
+/* Navigation */
 function goTo(id) {
   pages.forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
-/* Maze logic */
+/* Maze */
 const player = document.getElementById("player");
 const goal = document.getElementById("goal");
 const walls = document.querySelectorAll(".wall");
@@ -17,16 +25,7 @@ const msg = document.getElementById("mazeMsg");
 
 let dragging = false;
 let px = 10, py = 10;
-const speed = 1.8;
-
-/* Reset */
-function resetPlayer() {
-  px = 10;
-  py = 10;
-  player.style.left = px + "px";
-  player.style.top = py + "px";
-}
-resetPlayer();
+const speed = 1.6;
 
 /* Trail */
 function createTrail(x, y) {
@@ -63,61 +62,72 @@ document.addEventListener("pointermove", e => {
   const my = Math.sin(angle) * dist;
 
   knob.style.transform = `translate(${mx}px, ${my}px)`;
-  movePlayer(mx * speed * 0.05, my * speed * 0.05);
+  tryMove(mx * speed * 0.06, my * speed * 0.06);
 });
 
-/* Movement */
-function movePlayer(dx, dy) {
+/* Collision-safe movement */
+function tryMove(dx, dy) {
   let newX = px + dx;
   let newY = py + dy;
 
-  /* Clamp to border — NO reset */
   newX = Math.max(0, Math.min(250, newX));
   newY = Math.max(0, Math.min(250, newY));
 
-  player.style.left = newX + "px";
-  player.style.top = newY + "px";
-  createTrail(newX, newY);
+  const testRect = {
+    left: newX,
+    top: newY,
+    right: newX + 30,
+    bottom: newY + 30
+  };
 
-  const pRect = player.getBoundingClientRect();
-
-  /* Wall collision + proximity glow */
-  walls.forEach(wall => {
+  for (let wall of walls) {
     const w = wall.getBoundingClientRect();
+    const m = maze.getBoundingClientRect();
 
-    const distance =
-      Math.abs((pRect.left + pRect.width / 2) - (w.left + w.width / 2)) +
-      Math.abs((pRect.top + pRect.height / 2) - (w.top + w.height / 2));
+    const wallRect = {
+      left: w.left - m.left,
+      top: w.top - m.top,
+      right: w.right - m.left,
+      bottom: w.bottom - m.top
+    };
 
-    if (distance < 90) {
-      wall.classList.add("near");
-    } else {
-      wall.classList.remove("near");
-    }
+    const near =
+      Math.abs((testRect.left + 15) - (wallRect.left + wallRect.right) / 2) +
+      Math.abs((testRect.top + 15) - (wallRect.top + wallRect.bottom) / 2);
 
-    /* Actual collision */
+    wall.classList.toggle("near", near < 90);
+
     if (
-      pRect.right > w.left &&
-      pRect.left < w.right &&
-      pRect.bottom > w.top &&
-      pRect.top < w.bottom
+      testRect.right > wallRect.left &&
+      testRect.left < wallRect.right &&
+      testRect.bottom > wallRect.top &&
+      testRect.top < wallRect.bottom
     ) {
-      msg.innerText = "Oops… wrong turn 😅";
-      resetPlayer();
+      return; // ❌ BLOCK movement only
     }
-  });
-
-  /* Goal */
-  const g = goal.getBoundingClientRect();
-  if (
-    pRect.right > g.left &&
-    pRect.left < g.right &&
-    pRect.bottom > g.top &&
-    pRect.top < g.bottom
-  ) {
-    msg.innerText = "You found your way to my heart 💖";
   }
 
   px = newX;
   py = newY;
+  player.style.left = px + "px";
+  player.style.top = py + "px";
+  createTrail(px, py);
+
+  const g = goal.getBoundingClientRect();
+  const m = maze.getBoundingClientRect();
+  const goalRect = {
+    left: g.left - m.left,
+    top: g.top - m.top,
+    right: g.right - m.left,
+    bottom: g.bottom - m.top
+  };
+
+  if (
+    testRect.right > goalRect.left &&
+    testRect.left < goalRect.right &&
+    testRect.bottom > goalRect.top &&
+    testRect.top < goalRect.bottom
+  ) {
+    msg.innerText = "You found your way to my heart 💖";
+  }
 }
