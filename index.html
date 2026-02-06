@@ -5,51 +5,60 @@
   <title>Promise Day 💙</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Nunito:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Nunito:wght@400&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- INTRO -->
-<div id="intro" class="screen active">
-  <h2>For a better experience 🎧</h2>
-  <button onclick="startExperience()">Enter 💙</button>
+<!-- 🔁 Loop popup -->
+<div id="loopTransition">
+  <p>
+    Oh...? Back to home page again.....<br>
+    Maybe it symbolises how we always come back to each other 😁
+  </p>
 </div>
 
-<audio id="bgMusic" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
+<!-- 🏠 HOME -->
+<section class="page active" id="home">
+  <h1 class="glow">A Promise From My Heart</h1>
+  <p class="soft-glow">
+    Some people give flowers,<br>
+    I give you promises.
+  </p>
+  <button onclick="goTo('game')">A Small Game 💗</button>
+</section>
 
-<!-- HOME -->
-<div id="home" class="screen">
-  <h1>A Promise From My Heart 💗</h1>
-  <button onclick="showScreen('maze')">Start the Challenge</button>
-</div>
+<!-- 💗 HEART GAME -->
+<section class="page" id="game">
+  <h2 class="glow">Catch the Hearts 💖</h2>
+  <p class="soft-glow">Score at least <b>10</b> to continue</p>
 
-<!-- MAZE -->
-<div id="mazeScreen" class="screen">
-  <h2>Find Your Way Out 💖</h2>
+  <div id="gameArea"></div>
 
-  <div id="mazeContainer">
-    <div id="player">❤️</div>
-    <div id="goal">💖</div>
+  <p id="score">Score: 0</p>
+  <p id="timer">Time: 10</p>
+  <p id="gameMsg" class="soft-glow"></p>
 
-    <!-- Walls -->
-    <div class="wall w1"></div>
-    <div class="wall w2"></div>
-    <div class="wall w3"></div>
-    <div class="wall w4"></div>
-  </div>
+  <button id="gameBtn" style="display:none;">Continue 💙</button>
+</section>
 
-  <!-- Joystick -->
-  <div id="joystick">
-    <div id="joystickBase">
-      <div id="joystickKnob"></div>
-    </div>
-  </div>
+<!-- 💍 PROMISES -->
+<section class="page" id="promises">
+  <h2 class="glow">My Promises To You</h2>
+  <p class="soft-glow">
+    I promise to respect you.<br>
+    I promise to choose you.<br>
+    I promise to stay.
+  </p>
+  <button onclick="goTo('final')">Forever ♾️</button>
+</section>
 
-  <p id="mazeMsg"></p>
-</div>
+<!-- ♾️ FINAL -->
+<section class="page" id="final">
+  <h2 class="glow">♾️</h2>
+  <p class="soft-glow">My heart always comes back to you.</p>
+  <button onclick="startLoop()">Back to Start</button>
+</section>
 
 <script src="script.js"></script>
 </body>
