@@ -1,61 +1,12 @@
 const pages = document.querySelectorAll('.page');
-const loopTransition = document.getElementById('loopTransition');
-const intro = document.getElementById('intro');
-const music = document.getElementById('bgMusic');
 
-/* Start experience */
-function startExperience() {
-  intro.style.display = "none";
-  music.play().catch(() => {});
-}
-
-/* Navigation */
+/* Simple navigation */
 function goTo(id) {
-  const current = document.querySelector('.page.active');
-  const next = document.getElementById(id);
-  if (!next || current === next) return;
-
-  current.classList.remove('active');
-  setTimeout(() => next.classList.add('active'), 300);
+  pages.forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
-/* Lock */
-function unlock() {
-  const pass = document.getElementById("password").value.toLowerCase();
-  if (pass === "deepika") goTo("letter");
-  else document.getElementById("error").innerText = "Wrong name 💔";
-}
-
-/* Final loop */
-function startLoop() {
-  goTo("home");
-
-  setTimeout(() => {
-    loopTransition.style.display = "flex";
-    loopTransition.style.opacity = "1";
-  }, 400);
-
-  setTimeout(() => {
-    loopTransition.style.opacity = "0";
-    setTimeout(() => loopTransition.style.display = "none", 600);
-  }, 3500);
-}
-
-/* Heart rain */
-const hearts = document.querySelector('.hearts');
-const heartEmojis = ["💖","💕","💗","💓","💘"];
-
-setInterval(() => {
-  const h = document.createElement("span");
-  h.innerText = heartEmojis[Math.floor(Math.random()*heartEmojis.length)];
-  h.style.left = Math.random() * 100 + "vw";
-  h.style.fontSize = 16 + Math.random()*20 + "px";
-  h.style.animationDuration = 5 + Math.random()*4 + "s";
-  hearts.appendChild(h);
-  setTimeout(() => h.remove(), 9000);
-}, 700);
-
-/* Maze + joystick */
+/* Maze logic */
 const player = document.getElementById("player");
 const goal = document.getElementById("goal");
 const walls = document.querySelectorAll(".wall");
@@ -63,12 +14,12 @@ const maze = document.getElementById("mazeContainer");
 const knob = document.getElementById("joystickKnob");
 const base = document.getElementById("joystickBase");
 const msg = document.getElementById("mazeMsg");
-const mazeBtn = document.getElementById("mazeBtn");
 
 let dragging = false;
 let px = 10, py = 10;
-const speed = 1.6;
+const speed = 1.8;
 
+/* Reset */
 function resetPlayer() {
   px = 10;
   py = 10;
@@ -77,6 +28,7 @@ function resetPlayer() {
 }
 resetPlayer();
 
+/* Trail */
 function createTrail(x, y) {
   const t = document.createElement("div");
   t.className = "trail";
@@ -86,6 +38,7 @@ function createTrail(x, y) {
   setTimeout(() => t.remove(), 800);
 }
 
+/* Joystick */
 knob.addEventListener("pointerdown", e => {
   dragging = true;
   e.preventDefault();
@@ -110,13 +63,17 @@ document.addEventListener("pointermove", e => {
   const my = Math.sin(angle) * dist;
 
   knob.style.transform = `translate(${mx}px, ${my}px)`;
-  movePlayer(mx * speed * 0.06, my * speed * 0.06);
+  movePlayer(mx * speed * 0.05, my * speed * 0.05);
 });
 
+/* Movement */
 function movePlayer(dx, dy) {
-  const newX = px + dx;
-  const newY = py + dy;
-  if (newX < 0 || newY < 0 || newX > 250 || newY > 250) return;
+  let newX = px + dx;
+  let newY = py + dy;
+
+  /* Clamp to border — NO reset */
+  newX = Math.max(0, Math.min(250, newX));
+  newY = Math.max(0, Math.min(250, newY));
 
   player.style.left = newX + "px";
   player.style.top = newY + "px";
@@ -124,25 +81,41 @@ function movePlayer(dx, dy) {
 
   const pRect = player.getBoundingClientRect();
 
-  for (let wall of walls) {
+  /* Wall collision + proximity glow */
+  walls.forEach(wall => {
     const w = wall.getBoundingClientRect();
-    if (pRect.right > w.left &&
-        pRect.left < w.right &&
-        pRect.bottom > w.top &&
-        pRect.top < w.bottom) {
+
+    const distance =
+      Math.abs((pRect.left + pRect.width / 2) - (w.left + w.width / 2)) +
+      Math.abs((pRect.top + pRect.height / 2) - (w.top + w.height / 2));
+
+    if (distance < 90) {
+      wall.classList.add("near");
+    } else {
+      wall.classList.remove("near");
+    }
+
+    /* Actual collision */
+    if (
+      pRect.right > w.left &&
+      pRect.left < w.right &&
+      pRect.bottom > w.top &&
+      pRect.top < w.bottom
+    ) {
       msg.innerText = "Oops… wrong turn 😅";
       resetPlayer();
-      return;
     }
-  }
+  });
 
+  /* Goal */
   const g = goal.getBoundingClientRect();
-  if (pRect.right > g.left &&
-      pRect.left < g.right &&
-      pRect.bottom > g.top &&
-      pRect.top < g.bottom) {
+  if (
+    pRect.right > g.left &&
+    pRect.left < g.right &&
+    pRect.bottom > g.top &&
+    pRect.top < g.bottom
+  ) {
     msg.innerText = "You found your way to my heart 💖";
-    mazeBtn.style.display = "inline-block";
   }
 
   px = newX;
