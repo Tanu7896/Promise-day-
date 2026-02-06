@@ -10,7 +10,19 @@
 </head>
 <body>
 
-<!-- 🔁 Loop popup -->
+<!-- 🎵 MUSIC INTRO -->
+<div id="intro">
+  <div class="intro-heart">💖</div>
+  <h2>For a better experience</h2>
+  <p>Wear earphones 🎧</p>
+  <button onclick="startExperience()">Enter 💙</button>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 🔁 LOOP POPUP -->
 <div id="loopTransition">
   <p>
     Oh...? Back to home page again.....<br>
@@ -24,6 +36,17 @@
   <p class="soft-glow">
     Some people give flowers,<br>
     I give you promises.
+  </p>
+  <button onclick="goTo('why')">Start 💙</button>
+</section>
+
+<!-- 💬 WHY -->
+<section class="page" id="why">
+  <h2 class="glow">Why I Promise You, Deepika</h2>
+  <p class="soft-glow">
+    Because loving you feels safe.<br>
+    Because distance couldn’t break us.<br>
+    Because I don’t want temporary love.
   </p>
   <button onclick="goTo('game')">A Small Game 💗</button>
 </section>
@@ -50,14 +73,43 @@
     I promise to choose you.<br>
     I promise to stay.
   </p>
-  <button onclick="goTo('final')">Forever ♾️</button>
+  <button onclick="goTo('lock')">One Last Promise 🔐</button>
+</section>
+
+<!-- 🔐 LOCK -->
+<section class="page" id="lock">
+  <h2 class="glow">Special Lock</h2>
+  <p class="soft-glow">Who loves Sonu the most?</p>
+  <input id="password" placeholder="Name">
+  <button onclick="unlock()">Unlock</button>
+  <p id="error" class="soft-glow"></p>
+</section>
+
+<!-- ✍️ LETTER -->
+<section class="page" id="letter">
+  <h2 class="glow">A Letter For You ✍️</h2>
+  <p class="handwritten">
+    Dear Deepika,<br><br>
+    I don’t promise perfection,<br>
+    but I promise effort.<br><br>
+    No matter what,<br>
+    my heart will always find you.<br><br>
+    — Sonu 🤍
+  </p>
+  <button onclick="goTo('surprise')">One Last Thing 🎁</button>
+</section>
+
+<!-- 🎁 SURPRISE -->
+<section class="page" id="surprise">
+  <h2 class="glow">Will you always be my promise?</h2>
+  <button onclick="goTo('final')">💙</button>
 </section>
 
 <!-- ♾️ FINAL -->
 <section class="page" id="final">
   <h2 class="glow">♾️</h2>
-  <p class="soft-glow">My heart always comes back to you.</p>
-  <button onclick="startLoop()">Back to Start</button>
+  <p class="soft-glow">My promises will always come back to you.</p>
+  <button onclick="startLoop()">Forever ♾️</button>
 </section>
 
 <script src="script.js"></script>
