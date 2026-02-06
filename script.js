@@ -1,6 +1,15 @@
 const pages = document.querySelectorAll('.page');
+const intro = document.getElementById('intro');
+const music = document.getElementById('bgMusic');
 const loopTransition = document.getElementById('loopTransition');
 
+/* 🎵 Start experience */
+function startExperience() {
+  intro.style.display = "none";
+  music.play().catch(() => {});
+}
+
+/* Navigation */
 function goTo(id) {
   const current = document.querySelector('.page.active');
   const next = document.getElementById(id);
@@ -12,7 +21,14 @@ function goTo(id) {
   if (id === "game") startGame();
 }
 
-/* Loop popup */
+/* 🔐 Lock */
+function unlock() {
+  const pass = document.getElementById("password").value.toLowerCase();
+  if (pass === "deepika") goTo("letter");
+  else document.getElementById("error").innerText = "Wrong answer 😅";
+}
+
+/* 🔁 Loop popup */
 function startLoop() {
   goTo("home");
 
@@ -104,7 +120,7 @@ function endGame() {
   }
 }
 
-/* 🎉 CONFETTI */
+/* 🎉 Confetti */
 function launchConfetti() {
   for (let i = 0; i < 40; i++) {
     const c = document.createElement("div");
