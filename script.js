@@ -1,86 +1,118 @@
-const screens = document.querySelectorAll('.screen');
-const music = document.getElementById('bgMusic');
+const pages = document.querySelectorAll('.page');
+const loopTransition = document.getElementById('loopTransition');
 
-function showScreen(id) {
-  screens.forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+function goTo(id) {
+  const current = document.querySelector('.page.active');
+  const next = document.getElementById(id);
+  if (!next || current === next) return;
+
+  current.classList.remove('active');
+  setTimeout(() => next.classList.add('active'), 300);
+
+  if (id === "game") startGame();
 }
 
-/* Intro */
-function startExperience() {
-  document.getElementById('intro').classList.remove('active');
-  showScreen('home');
-  music.play().catch(() => {});
+/* Loop popup */
+function startLoop() {
+  goTo("home");
+
+  setTimeout(() => {
+    loopTransition.style.display = "flex";
+    loopTransition.style.opacity = "1";
+  }, 400);
+
+  setTimeout(() => {
+    loopTransition.style.opacity = "0";
+    setTimeout(() => loopTransition.style.display = "none", 600);
+  }, 3000);
 }
 
-/* Maze logic */
-const player = document.getElementById("player");
-const goal = document.getElementById("goal");
-const maze = document.getElementById("mazeContainer");
-const walls = document.querySelectorAll(".wall");
-const knob = document.getElementById("joystickKnob");
-const base = document.getElementById("joystickBase");
-const msg = document.getElementById("mazeMsg");
+/* 💗 HEART GAME */
+let score = 0;
+let time = 10;
+let gameInterval, timerInterval;
 
-let px = 10, py = 10;
-let dragging = false;
+const gameArea = document.getElementById("gameArea");
+const scoreEl = document.getElementById("score");
+const timerEl = document.getElementById("timer");
+const gameBtn = document.getElementById("gameBtn");
+const gameMsg = document.getElementById("gameMsg");
 
-knob.addEventListener("pointerdown", () => dragging = true);
-document.addEventListener("pointerup", () => {
-  dragging = false;
-  knob.style.transform = "translate(0,0)";
-});
+function startGame() {
+  score = 0;
+  time = 10;
+  scoreEl.innerText = "Score: 0";
+  timerEl.innerText = "Time: 10";
+  gameMsg.innerText = "";
+  gameBtn.style.display = "none";
+  gameArea.innerHTML = "";
 
-document.addEventListener("pointermove", e => {
-  if (!dragging) return;
+  gameInterval = setInterval(spawnHeart, 600);
+  timerInterval = setInterval(() => {
+    time--;
+    timerEl.innerText = "Time: " + time;
+    if (time <= 0) endGame();
+  }, 1000);
+}
 
-  const rect = base.getBoundingClientRect();
-  const dx = e.clientX - (rect.left + 60);
-  const dy = e.clientY - (rect.top + 60);
+function spawnHeart() {
+  const heart = document.createElement("div");
+  const rand = Math.random();
 
-  const dist = Math.min(30, Math.hypot(dx, dy));
-  const angle = Math.atan2(dy, dx);
-
-  const mx = Math.cos(angle) * dist;
-  const my = Math.sin(angle) * dist;
-
-  knob.style.transform = `translate(${mx}px,${my}px)`;
-  tryMove(mx * 0.06, my * 0.06);
-});
-
-function tryMove(dx, dy) {
-  let nx = px + dx;
-  let ny = py + dy;
-
-  nx = Math.max(0, Math.min(230, nx));
-  ny = Math.max(0, Math.min(230, ny));
-
-  const test = { left:nx, top:ny, right:nx+24, bottom:ny+24 };
-
-  for (let wall of walls) {
-    const r = wall.getBoundingClientRect();
-    const m = maze.getBoundingClientRect();
-
-    const w = {
-      left: r.left - m.left,
-      top: r.top - m.top,
-      right: r.right - m.left,
-      bottom: r.bottom - m.top
-    };
-
-    if (
-      test.right > w.left &&
-      test.left < w.right &&
-      test.bottom > w.top &&
-      test.top < w.bottom
-    ) return;
+  if (rand < 0.7) {
+    heart.innerText = "💖";
+    heart.dataset.value = 1;
+  } else if (rand < 0.9) {
+    heart.innerText = "💗";
+    heart.dataset.value = 2;
+    heart.classList.add("bonus");
+  } else {
+    heart.innerText = "💎";
+    heart.dataset.value = 5;
+    heart.classList.add("rare");
   }
 
-  px = nx; py = ny;
-  player.style.left = px + "px";
-  player.style.top = py + "px";
+  heart.classList.add("heart");
+  heart.style.left = Math.random() * 90 + "%";
+  heart.style.animationDuration = 3 + Math.random() * 2 + "s";
 
-  if (py > 230) {
-    msg.innerText = "You found the way out 💖";
+  heart.onclick = () => {
+    score += Number(heart.dataset.value);
+    scoreEl.innerText = "Score: " + score;
+    heart.remove();
+  };
+
+  gameArea.appendChild(heart);
+  setTimeout(() => heart.remove(), 5000);
+}
+
+function endGame() {
+  clearInterval(gameInterval);
+  clearInterval(timerInterval);
+  gameArea.innerHTML = "";
+
+  if (score >= 10) {
+    gameMsg.innerText = "You caught enough love 💖";
+    gameBtn.style.display = "inline-block";
+    gameBtn.onclick = () => goTo("promises");
+    launchConfetti();
+  } else {
+    gameMsg.innerText = "Not enough hearts 😅 Try again!";
+    gameBtn.style.display = "inline-block";
+    gameBtn.innerText = "Retry 💗";
+    gameBtn.onclick = () => startGame();
+  }
+}
+
+/* 🎉 CONFETTI */
+function launchConfetti() {
+  for (let i = 0; i < 40; i++) {
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.background = ["#ff6fae","#ffd1dc","#fff"][Math.floor(Math.random()*3)];
+    c.style.animationDuration = 3 + Math.random() * 2 + "s";
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 5000);
   }
 }
