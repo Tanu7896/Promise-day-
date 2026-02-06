@@ -5,16 +5,14 @@
   <title>Promise Day 💙</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Nunito:wght@400&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Nunito:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- 🎵 MUSIC INTRO -->
-<div id="intro">
-  <div class="intro-heart">💖</div>
-  <h2>For a better experience</h2>
-  <p>Tap to play music 🎧</p>
+<!-- INTRO -->
+<div id="intro" class="screen active">
+  <h2>For a better experience 🎧</h2>
   <button onclick="startExperience()">Enter 💙</button>
 </div>
 
@@ -22,42 +20,36 @@
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- 🏠 HOME -->
-<section class="page active" id="home">
-  <h1 class="glow">A Promise From My Heart</h1>
-  <p class="soft-glow">
-    Some people give flowers,<br>
-    I give you promises.
-  </p>
-  <button onclick="goTo('maze')">Begin 💗</button>
-</section>
+<!-- HOME -->
+<div id="home" class="screen">
+  <h1>A Promise From My Heart 💗</h1>
+  <button onclick="showScreen('maze')">Start the Challenge</button>
+</div>
 
-<!-- ❤️ HEART MAZE -->
-<section class="page" id="maze">
-  <h2 class="glow">Find Your Way to My Heart 💗</h2>
+<!-- MAZE -->
+<div id="mazeScreen" class="screen">
+  <h2>Find Your Way Out 💖</h2>
 
   <div id="mazeContainer">
     <div id="player">❤️</div>
     <div id="goal">💖</div>
 
+    <!-- Walls -->
     <div class="wall w1"></div>
     <div class="wall w2"></div>
     <div class="wall w3"></div>
     <div class="wall w4"></div>
-    <div class="wall w5"></div>
-    <div class="wall w6"></div>
-    <div class="wall w7"></div>
   </div>
 
-  <!-- 🎮 JOYSTICK -->
+  <!-- Joystick -->
   <div id="joystick">
     <div id="joystickBase">
       <div id="joystickKnob"></div>
     </div>
   </div>
 
-  <p id="mazeMsg" class="soft-glow"></p>
-</section>
+  <p id="mazeMsg"></p>
+</div>
 
 <script src="script.js"></script>
 </body>
