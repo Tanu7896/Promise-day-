@@ -1,7 +1,15 @@
 const pages = document.querySelectorAll('.page');
 const loopTransition = document.getElementById('loopTransition');
+const intro = document.getElementById('intro');
+const music = document.getElementById('bgMusic');
 
-/* Page navigation */
+/* Start experience */
+function startExperience() {
+  intro.style.display = "none";
+  music.play().catch(() => {});
+}
+
+/* Navigation */
 function goTo(id) {
   const current = document.querySelector('.page.active');
   const next = document.getElementById(id);
@@ -18,24 +26,22 @@ function unlock() {
   else document.getElementById("error").innerText = "Wrong name 💔";
 }
 
-/* Final loop – popup AFTER home */
+/* Final loop */
 function startLoop() {
   goTo("home");
 
   setTimeout(() => {
     loopTransition.style.display = "flex";
     loopTransition.style.opacity = "1";
-    loopTransition.style.pointerEvents = "auto";
   }, 400);
 
   setTimeout(() => {
     loopTransition.style.opacity = "0";
-    loopTransition.style.pointerEvents = "none";
     setTimeout(() => loopTransition.style.display = "none", 600);
   }, 3500);
 }
 
-/* ❤️ Heart rain */
+/* Heart rain */
 const hearts = document.querySelector('.hearts');
 const heartEmojis = ["💖","💕","💗","💓","💘"];
 
@@ -49,7 +55,7 @@ setInterval(() => {
   setTimeout(() => h.remove(), 9000);
 }, 700);
 
-/* ❤️ Heart Maze logic */
+/* Maze + joystick */
 const player = document.getElementById("player");
 const goal = document.getElementById("goal");
 const walls = document.querySelectorAll(".wall");
@@ -61,7 +67,7 @@ const mazeBtn = document.getElementById("mazeBtn");
 
 let dragging = false;
 let px = 10, py = 10;
-const speed = 1.7;
+const speed = 1.6;
 
 function resetPlayer() {
   px = 10;
@@ -80,7 +86,11 @@ function createTrail(x, y) {
   setTimeout(() => t.remove(), 800);
 }
 
-knob.addEventListener("pointerdown", () => dragging = true);
+knob.addEventListener("pointerdown", e => {
+  dragging = true;
+  e.preventDefault();
+});
+
 document.addEventListener("pointerup", () => {
   dragging = false;
   knob.style.transform = "translate(0,0)";
@@ -100,7 +110,7 @@ document.addEventListener("pointermove", e => {
   const my = Math.sin(angle) * dist;
 
   knob.style.transform = `translate(${mx}px, ${my}px)`;
-  movePlayer(mx * speed * 0.05, my * speed * 0.05);
+  movePlayer(mx * speed * 0.06, my * speed * 0.06);
 });
 
 function movePlayer(dx, dy) {
