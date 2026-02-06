@@ -5,24 +5,25 @@
   <title>Promise Day 💙</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Nunito:wght@400&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Nunito:wght@300;400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- 🎵 MUSIC INTRO -->
+<!-- 💕 Heart Rain -->
+<div class="hearts"></div>
+
+<!-- 🎵 INTRO (SEPARATE, SAFE) -->
 <div id="intro">
   <div class="intro-heart">💖</div>
   <h2>For a better experience</h2>
-  <p>Wear earphones 🎧</p>
+  <p>Tap below & wear earphones 🎧</p>
   <button onclick="startExperience()">Enter 💙</button>
 </div>
 
-<audio id="bgMusic" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
-
-<!-- 🔁 LOOP POPUP -->
+<!-- 🔁 Loop Transition -->
 <div id="loopTransition">
   <p>
     Oh...? Back to home page again.....<br>
@@ -30,17 +31,21 @@
   </p>
 </div>
 
-<!-- 🏠 HOME -->
+<!-- 🎵 Music -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- HOME -->
 <section class="page active" id="home">
   <h1 class="glow">A Promise From My Heart</h1>
   <p class="soft-glow">
     Some people give flowers,<br>
     I give you promises.
   </p>
-  <button onclick="goTo('why')">Start 💙</button>
+  <button onclick="goTo('why')">Read My Promises</button>
 </section>
 
-<!-- 💬 WHY -->
 <section class="page" id="why">
   <h2 class="glow">Why I Promise You, Deepika</h2>
   <p class="soft-glow">
@@ -48,67 +53,44 @@
     Because distance couldn’t break us.<br>
     Because I don’t want temporary love.
   </p>
-  <button onclick="goTo('game')">A Small Game 💗</button>
+  <button onclick="goTo('promises')">My Promises</button>
 </section>
 
-<!-- 💗 HEART GAME -->
-<section class="page" id="game">
-  <h2 class="glow">Catch the Hearts 💖</h2>
-  <p class="soft-glow">Score at least <b>10</b> to continue</p>
-
-  <div id="gameArea"></div>
-
-  <p id="score">Score: 0</p>
-  <p id="timer">Time: 10</p>
-  <p id="gameMsg" class="soft-glow"></p>
-
-  <button id="gameBtn" style="display:none;">Continue 💙</button>
-</section>
-
-<!-- 💍 PROMISES -->
 <section class="page" id="promises">
-  <h2 class="glow">My Promises To You</h2>
-  <p class="soft-glow">
-    I promise to respect you.<br>
-    I promise to choose you.<br>
-    I promise to stay.
-  </p>
-  <button onclick="goTo('lock')">One Last Promise 🔐</button>
+  <h2 class="glow">My Promises To You 💍</h2>
+  <div id="typing" class="soft-glow"></div>
+  <button onclick="goTo('lock')">One Last Promise</button>
 </section>
 
-<!-- 🔐 LOCK -->
 <section class="page" id="lock">
-  <h2 class="glow">Special Lock</h2>
-  <p class="soft-glow">Who loves Sonu the most?</p>
-  <input id="password" placeholder="Name">
+  <h2 class="glow">Special Lock 🔐</h2>
+  <p class="soft-glow">Enter the name of the person who owns my heart</p>
+  <input type="password" id="password" placeholder="Name">
   <button onclick="unlock()">Unlock</button>
   <p id="error" class="soft-glow"></p>
 </section>
 
-<!-- ✍️ LETTER -->
 <section class="page" id="letter">
   <h2 class="glow">A Letter For You ✍️</h2>
   <p class="handwritten">
     Dear Deepika,<br><br>
     I don’t promise perfection,<br>
     but I promise effort.<br><br>
-    No matter what,<br>
-    my heart will always find you.<br><br>
-    — Sonu 🤍
+    No matter the distance,<br>
+    my heart always comes back to you.<br><br>
+    Always yours 🤍
   </p>
   <button onclick="goTo('surprise')">One Last Thing 🎁</button>
 </section>
 
-<!-- 🎁 SURPRISE -->
 <section class="page" id="surprise">
   <h2 class="glow">Will you always be my promise?</h2>
   <button onclick="goTo('final')">💙</button>
 </section>
 
-<!-- ♾️ FINAL -->
 <section class="page" id="final">
   <h2 class="glow">♾️</h2>
-  <p class="soft-glow">My promises will always come back to you.</p>
+  <p class="soft-glow">My promises will always find you.</p>
   <button onclick="startLoop()">Forever ♾️</button>
 </section>
 
