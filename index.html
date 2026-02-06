@@ -10,7 +10,19 @@
 </head>
 <body>
 
-<!-- HOME -->
+<!-- 🎵 MUSIC INTRO -->
+<div id="intro">
+  <div class="intro-heart">💖</div>
+  <h2>For a better experience</h2>
+  <p>Tap to play music 🎧</p>
+  <button onclick="startExperience()">Enter 💙</button>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 🏠 HOME -->
 <section class="page active" id="home">
   <h1 class="glow">A Promise From My Heart</h1>
   <p class="soft-glow">
@@ -37,6 +49,7 @@
     <div class="wall w7"></div>
   </div>
 
+  <!-- 🎮 JOYSTICK -->
   <div id="joystick">
     <div id="joystickBase">
       <div id="joystickKnob"></div>
