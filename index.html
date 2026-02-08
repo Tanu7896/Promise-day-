@@ -15,7 +15,7 @@
 <!-- 💕 Heart Rain -->
 <div class="hearts"></div>
 
-<!-- 🎵 INTRO (SEPARATE, SAFE) -->
+<!-- 🎵 INTRO -->
 <div id="intro">
   <div class="intro-heart">💖</div>
   <h2>For a better experience</h2>
@@ -80,7 +80,23 @@
     my heart always comes back to you.<br><br>
     Always yours 🤍
   </p>
-  <button onclick="goTo('surprise')">One Last Thing 🎁</button>
+  <button onclick="goTo('game')">One Last Thing 🎮</button>
+</section>
+
+<!-- 💘 MINI GAME (NEW — ONLY ADDITION) -->
+<section class="page" id="game">
+  <h2 class="glow">Catch My Love 💖</h2>
+  <p class="soft-glow">Catch 10 hearts to unlock my surprise</p>
+
+  <div id="gameArea">
+    <div id="basket">🧺</div>
+  </div>
+
+  <div id="loveMeter">Love: <span id="score">0</span> / 10 💕</div>
+
+  <button id="gameBtn" style="display:none" onclick="goTo('surprise')">
+    Continue 💙
+  </button>
 </section>
 
 <section class="page" id="surprise">
